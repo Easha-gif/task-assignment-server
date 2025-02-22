@@ -22,10 +22,7 @@ const client = new MongoClient(uri, {
 const TaskCollection = client.db("Tasks").collection("add-task");
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-
-
+  
 app.get('/tasks',async(req,res)=>{
 const tasks= await TaskCollection.find().toArray()
 res.send(tasks)
@@ -43,8 +40,7 @@ const query = {_id:new ObjectId(id)}
 const result= await TaskCollection.deleteOne(query)
 res.send(result)
 })
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+
   } finally {
   }
 }
