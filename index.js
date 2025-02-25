@@ -27,6 +27,13 @@ app.get('/tasks',async(req,res)=>{
 const tasks= await TaskCollection.find().toArray()
 res.send(tasks)
 })
+//get a single task
+app.get('/task/:id',async(req,res)=>{
+  const id=req.params.id
+  const query={_id:new ObjectId(id)}
+  const result = await TaskCollection.findOne(query)
+  res.send(result)
+})
 // task add
 app.post('/addTask',async(req,res)=>{
 const task=req.body
