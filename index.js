@@ -40,6 +40,29 @@ const task=req.body
 const result=await TaskCollection.insertOne(task)
 res.send(result)
 })
+// update a single task
+app.put("/update/:id",async(req,res)=>{
+  const id=req.params.id
+  const query={_id:new ObjectId(id)}
+  const updatedData=req.body
+  const updatedDoc={
+    $set:{
+      title : updatedData.title,
+      description : updatedData.description,
+      userEmail:updatedData.userEmail,
+      userName:updatedData.userName,
+      date:updatedData.date,
+      lastUpdateDate:updatedData.lastUpdateDate,
+      taskStatus : updatedData.taskStatus,
+      status:updatedData.status,
+      dueData:updatedData.dueData,
+      priority:updatedData.priority
+    }
+  }
+  const options = { upsert: true };
+const result= await TaskCollection.updateOne(query,updatedDoc,options)
+res.send(result)
+})
 // task Delete
 app.delete('/delete/:id',async(req,res)=>{
 const id=req.params.id
